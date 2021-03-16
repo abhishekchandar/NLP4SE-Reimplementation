@@ -22,8 +22,6 @@ requests_cache.install_cache('data')
 for file in list(glob.glob('*.csv')):
     try:
         dataframe = pd.read_csv(file)
-    # dataframe = pd.read_csv(
-    #     'C://Users//abhis//Desktop//Reimplement-NLP4SE-1//data/ae.csv')
         for id in dataframe['pageid']:
             data = requests.get(
                 'https://en.wikipedia.org/w/api.php?action=query&prop=info&pageids='+str(id)+'&inprop=url&format=json')
@@ -33,14 +31,7 @@ for file in list(glob.glob('*.csv')):
             df = df.append({'Text': text}, ignore_index=True)
     except Exception as e:
         traceback.print_exc()
-
     finally:
-        print(file+' processing done.')
+        print(file+' corpus built.')
         print(df.shape)
         df.to_csv(file+'_1.csv')
-# print(data)
-# dataframe['title'] = dataframe['title'].map(lambda x: x.replace("_", " "))
-# print(dataframe['title'])
-
-
-# print(df['Text'])
